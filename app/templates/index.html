@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment(local_js="https://static.pdflibr.com/momentjs/moment.min.js") }}
+{{ moment.lang('zh_CN')}}
+{% endblock %}
+
+{% block page_content %}
+<p>The local date and time is {{moment(current_time).format('LLL')}}.</p>
+<p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+<div class="page-header">
+    <h1>Hello, {% if name %} {{name}}{% else %}Stranger{% endif %}</h1>
+    {% if not known %}
+    <p>欢迎！！</p>
+    {% else %}
+    <p>又见面了！</p>
+    {% endif %}
+</div>
+{{wtf.quick_form(form)}}
+{% endblock %}
