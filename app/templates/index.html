@@ -19,6 +19,11 @@
     {% else %}
     <p>又见面了！</p>
     {% endif %}
+    {% if current_user.is_authenticated %}
+        {{ current_user.username }}
+    {% else %}
+        Stranger
+    {% endif %}
 </div>
 {{wtf.quick_form(form)}}
 {% endblock %}
