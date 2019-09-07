@@ -16,7 +16,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLASKY_MAIL_SUBJECT_PREFIX = 'Flasky'
     FLASKY_MAIL_SENDER = '2867432325@qq.com'
-    FLASKY_POSTS_PER_PAGE = 2
+    FLASKY_POSTS_PER_PAGE = 3
 
 
 class DevelopmentConfig(Config):
