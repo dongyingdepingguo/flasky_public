@@ -1,0 +1,9 @@
+Dear {{ user.username }},
+
+If you want to change your email please click on the following link:
+
+{{ url_for('auth.confirm_new_email', token=token, _external=True) }}
+
+Sincerely,
+
+The Flasky Team

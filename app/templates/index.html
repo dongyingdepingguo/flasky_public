@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 
 {% block title %} 首页 {% endblock %}
 
@@ -7,23 +8,23 @@
 {{ super() }}
 {{ moment.include_moment(local_js="https://static.pdflibr.com/momentjs/moment.min.js") }}
 {{ moment.lang('zh_CN')}}
+{{ pagedown.include_pagedown() }}
 {% endblock %}
 
 {% block page_content %}
-<p>The local date and time is {{moment(current_time).format('LLL')}}.</p>
-<p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
-<div class="page-header">
-    <h1>Hello, {% if name %} {{name}}{% else %}Stranger{% endif %}</h1>
-    {% if not known %}
-    <p>欢迎！！</p>
-    {% else %}
-    <p>又见面了！</p>
-    {% endif %}
-    {% if current_user.is_authenticated %}
-        {{ current_user.username }}
-    {% else %}
-        Stranger
+<h3>The local date and time is {{moment(current_time).format('LLL')}}.</h3>
+<h3>That was {{ moment(current_time).fromNow(refresh=True) }}</h3>
+<div>
+    {% if current_user.can(Permission.WRITE_ARTICLES) %}
+    {{wtf.quick_form(form)}}
     {% endif %}
 </div>
-{{wtf.quick_form(form)}}
+
+{% include '_posts.html' %}
+
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
 {% endblock %}
