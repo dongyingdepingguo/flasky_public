@@ -8,7 +8,7 @@
 
 from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField, ValidationError
 from wtforms.validators import DataRequired, Length, Email, Regexp
-from wtforms import Form as FlaskForm
+from flask_wtf import FlaskForm
 from flask_pagedown.fields import PageDownField
 from . .model import Role, User
 
