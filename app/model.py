@@ -168,7 +168,7 @@ class Post(db.Model):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em',
                         'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p']
         md = markdown(value, output_format='html')
-        target.body_html = bleach.linkify(bleach.clean(md), skip_tags=allowed_tags)
+        target.body_html = bleach.linkify(bleach.clean(md, tags=allowed_tags, strip=True))
 
     @staticmethod
     def generate_fake_post(count=15):
