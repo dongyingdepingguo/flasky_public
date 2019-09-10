@@ -19,7 +19,7 @@
         {% if user.location %}
         From <a href="http://maps.google.com/?q={{ user.location }}">
             {{ user.location }}
-    </a>
+            </a>
         {% endif %}
     </p>
     {% endif %}
@@ -46,9 +46,9 @@
     <h3>Posts by {{ user.username }}</h3>
     {% include '_posts.html' %}
     {% if pagination %}
-<div class="pagination">
-    {{ macros.pagination_widget(pagination, '.user', username=current_user.username) }}
-</div>
-{% endif %}
+    <div class="pagination">
+    {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
