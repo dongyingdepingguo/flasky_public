@@ -1,42 +1,85 @@
+
+<head>
+<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+
+<style>
+    [class=post-body]
+    {
+    width: auto;
+    height: auto;
+    padding-top:25px;
+    padding-bottom:25px;
+    padding-right:50px;
+    padding-left:50px;
+    border: 2px solid #FFF0F5;
+    box-sizing: border-box;
+    background-color: #FFF0F5;
+    display: block;
+    }
+
+    [class|=post-info]
+    {
+    display: inline;
+    position: relative;
+    left: 700px;
+    }
+
+    [class|=post-pre]
+    {
+    display: inline;
+    position: relative
+    top: 20px
+    }
+</style>
+
+
 <ul class="posts">
     {% for post in posts %}
     <li class="post">
-        <div class="post-thumbnail">
-            <a href="{{ url_for('.user', username=post.author.username) }}">
-                <img class="img-rounds profile-thumbnail" src="{{ post.author.gravatar(size=40) }}">
-            </a>
-        </div>
-        <div class="post-content">
-            <div class="post-date">{{ moment(post.timestamp).fromNow() }}</div>
-            <div class="post-author">
+        <div class="post-pre">
+            <div class="post-pre-thumbnail">
                 <a href="{{ url_for('.user', username=post.author.username) }}">
-                    {{ post.author.username }}
+                    <img class="img-rounds profile-thumbnail" src="{{ post.author.gravatar(size=40) }}">
                 </a>
             </div>
+            <div class="post-pre-detail">
+                <div class="post-info-date">
+                    <i class="icon-calendar"> {{ moment(post.timestamp).fromNow() }} </i>
+                </div>
+                <div class="post-info-author">
+                    <a href="{{ url_for('.user', username=post.author.username) }}">
+                        <i class="icon-user"> {{ post.author.username }} </i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="post-content" style="position: relative; top: 5px">
             <div class="post-body">
                 {% if post.body_html %}
                     {{ post.body_html | safe }}
                 {% else %}
                     {{ post.body }}
                 {% endif %}
-            </div>
-            <div class="post-footer">
+                <div class="post-footer">
                 <a href="{{ url_for('.post', id=post.id) }}">
-                    <span class="label label-default">Permalink</span>
+                    <span class="label label-default">全文</span>
                 </a>
                 {% if current_user == post.author %}
                 <a href="{{ url_for('.edit', id=post.id) }}">
-                    <span class="label label-default">Edit</span>
+                    <span class="label label-default">编辑</span>
                 </a>
                 {% elif current_user.is_administrator() %}
                 <a href="{{ url_for('.edit', id=post.id) }}">
-                    <span class="label label-default">Edit [Admin]</span>
+                    <span class="label label-default">编辑 [管理员]</span>
                 </a>
                 {% endif %}
+                </div>
             </div>
-
         </div>
 
     </li>
+    <hr>
     {% endfor %}
 </ul>
