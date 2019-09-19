@@ -8,7 +8,7 @@ from .forms import LoginForm, RegistrationForm, ChangePassword, ConfirmEmail, Re
 from . .model import User
 from . import auth
 from app import db
-from manage import app
+# from manage import app
 from . .email import send_email
 
 
@@ -171,7 +171,7 @@ def confirm_new_email(token):
     return redirect(url_for('auth.change_email'))
 
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db.db_session.remove()
+# @app.teardown_appcontext
+# def shutdown_session(exception=None):
+#     db.db_session.remove()
 
