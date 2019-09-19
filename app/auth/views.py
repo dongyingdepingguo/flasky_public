@@ -8,7 +8,9 @@ from .forms import LoginForm, RegistrationForm, ChangePassword, ConfirmEmail, Re
 from . .model import User
 from . import auth
 from app import db
+from manage import app
 from . .email import send_email
+
 
 @auth.before_app_request
 def before_request():
@@ -167,4 +169,9 @@ def confirm_new_email(token):
     db.session.commit()
     flash('邮箱已更改！')
     return redirect(url_for('auth.change_email'))
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.db_session.remove()
 

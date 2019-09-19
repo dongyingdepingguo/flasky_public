@@ -122,7 +122,6 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-
     def gravatar(self, size=100, default='identicon', rating='g'):
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'
@@ -184,6 +183,8 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+
+
 db.event.listen(Post.body, 'set', Post.on_changed_body)
 
 
@@ -194,7 +195,9 @@ class AnonymousUser(AnonymousUserMixin):
     def is_administrator(self):
         return False
 
+
 login_manager.anonymous_user = AnonymousUser
+
 
 class Permission:
     FOLLOW = 0x01

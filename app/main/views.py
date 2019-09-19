@@ -14,6 +14,7 @@ from . import main
 from .forms import NameForm, EditProfileForm, EditProfileAdminForm, PostForm
 from app import db
 from app.model import User, Role, Permission, Post
+from manage import app
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -30,8 +31,9 @@ def index():
                                                                      error_out=False)
     posts = pagination.items
     return render_template('index.html', form=form, posts=posts,
-                           pagination= pagination,
+                           pagination=pagination,
                            current_time=datetime.utcnow())
+
 
 @main.route('/user/<username>')
 def user(username):
@@ -128,11 +130,7 @@ def for_admins_only():
 def for_moderator_only():
     return 'For comment moderators!'
 
-from flask import Flask
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return '<h1>Hello World</h1>'
 
-if __name__ == '__main__':
-    app.run()
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.db_session.remove()
