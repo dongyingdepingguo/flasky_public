@@ -2,13 +2,12 @@
 
 # _*_ coding: utf-8 _*_
 
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegistrationForm, ChangePassword, ConfirmEmail, ResetPassword, ChangeEmail
 from . .model import User
 from . import auth
 from app import db
-# from manage import app
 from . .email import send_email
 
 
@@ -171,7 +170,7 @@ def confirm_new_email(token):
     return redirect(url_for('auth.change_email'))
 
 
-# @app.teardown_appcontext
+# @current_app.teardown_appcontext
 # def shutdown_session(exception=None):
 #     db.db_session.remove()
 

@@ -14,7 +14,6 @@ from . import main
 from .forms import NameForm, EditProfileForm, EditProfileAdminForm, PostForm
 from app import db
 from app.model import User, Role, Permission, Post
-from manage import app
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -131,6 +130,6 @@ def for_moderator_only():
     return 'For comment moderators!'
 
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db.db_session.remove()
+# @current_app.teardown_appcontext
+# def shutdown_session(exception=None):
+#     db.db_session.remove()
