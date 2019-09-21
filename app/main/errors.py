@@ -7,6 +7,7 @@
 # @Software: PyCharm
 
 from flask import render_template
+from app import db
 from . import main
 
 
@@ -17,6 +18,8 @@ def page_not_found(e):
 
 @main.app_errorhandler(500)
 def internal_server_error(e):
+    db.session.rollback()
+    db.session.commit()
     return render_template('500.html'), 500
 
 
